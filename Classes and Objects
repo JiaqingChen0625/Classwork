@@ -12,15 +12,16 @@ public class Circle
                 this.radius = radius;
                 totalOfCircles++;
         }
+        
+         public String getColor() 
+        {
+                return color;
+        }
+
 
         public double getRadius() 
         {
                 return radius;
-        }
-
-        public String getColor() 
-        {
-                return color;
         }
 
         public long getTotalOfCircles() 
@@ -77,16 +78,17 @@ public class Rectangle
         {
                 return (width == height);
         }
+        
+        public double getCircumference() 
+        {
+                return 2 * (width + height);
+        }
 
         public double getArea() 
         {
                 return width * height;
         }
 
-        public double getCircumference() 
-        {
-                return 2 * (width + height);
-        }
 }
 
 package edu.gcccd.csis;
@@ -101,19 +103,9 @@ public class Container
                 return rectangle;
         }
 
-        public void setRectangle(Rectangle rectangle) 
-        {
-                this.rectangle = rectangle;
-        }
-
         public Circle getCircle() 
         {
                 return circle;
-        }
-
-        public void setCircle(Circle circle) 
-        {
-                this.circle = circle;
         }
 
         public int size() {
