@@ -1,0 +1,28 @@
+public class Main
+{
+    
+        public static void main(String[] args)
+        {
+            int i;
+            int number1 = 0;
+            int number2 = 0;
+            
+            double x,y;
+            
+            for ( i = 0; i< 1000000; i++)
+            {
+                x = Math.random();
+                y = Math.random();
+                
+                number1++;
+                
+                if (x*x + y*y <= 1)
+                
+                number2++;
+                
+            }
+            
+            System.out.println("Pi = " + 4*(double)number2/(double)number1);
+        }
+        
+}
