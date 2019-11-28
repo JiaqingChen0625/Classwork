@@ -1,0 +1,24 @@
+import java.math.*;
+public class Main
+{
+
+   public static void main(String[] args) {
+      double startTime = System.currentTimeMillis();
+      System.out.println("The 40th fibonacci number is " + fib(40) + ".");
+      double stopTime = System.currentTimeMillis();
+      double elapsedTime = stopTime - startTime;
+      System.out.println("was calculate in "+ elapsedTime/1000 + "sec");
+      
+      
+   }
+	public static long fib(int n) {
+	   
+      if ((n == 0) || (n == 1))
+         return n;
+      else
+         return fib(n - 1) + fib(n - 2);
+    
+  
+   }
+	
+}
