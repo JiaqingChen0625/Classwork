@@ -1,0 +1,70 @@
+package edu.gcccd.csis;
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
+
+public class Finder {
+
+    public static void main(final String[] args) throws IOException {
+        final Path path = Paths.get(args.length < 1 ? "." : args[0]);
+        final File ex = findExtremeFile(path);
+        System.out.printf("Starting at : %s, the largest file was found here:\n%s\n its size is: %d\n",
+                path.toAbsolutePath().toString(),
+                ex.getAbsolutePath(),
+                ex.length());
+    }
+
+ 
+    static File extreme(final File f1, final File f2) {
+        if (f1 == null && f2 == null) {
+            return null;
+        }
+        if (f1 == null) {
+            return f2;
+        }
+        if (f2 == null) {
+            return f1;
+        }
+        if (f1.length() > f2.length()) {
+            return f1;
+        } else if (f1.length() < f2.length()) {
+            return f2;
+        } else {
+            // use the one with the longest path
+            if (f1.toPath().getNameCount() > f2.toPath().getNameCount()) {
+                return f1;
+            } else if (f1.toPath().getNameCount() < f2.toPath().getNameCount()) {
+                return f2;
+            } else {
+                //use the one you found last
+                return f2;
+            }
+
+        }
+    }
+
+ 
+    static File findExtremeFile(final Path p) {
+        File x = null;
+        final File[] fa = p.toFile().listFiles();
+        if (fa != null) { // if null then directory is probably not accessible
+            // Since this is DFS, first find all sub-directories in the current directory0
+            for (File file : fa) {
+                if (x == null && file.isFile()) {
+                    x = file;
+                }
+                if (file.isDirectory()) {
+                    File extremeFile = findExtremeFile(file.toPath());
+                    x = extreme(x, extremeFile);
+                } else if (file.isFile()) {
+                    x = extreme(x, file);
+                }
+            }
+          
+        }
+        return x;
+    }
+}
