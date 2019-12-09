@@ -68,3 +68,61 @@ public class Finder {
         return x;
     }
 }
+
+------------------------------------------------------------------------------------------------------------------------
+
+package edu.gcccd.csis;
+
+import org.junit.Test;
+
+import java.io.File;
+import java.io.FileWriter;
+import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import static org.junit.Assert.assertEquals;
+
+public class FinderTest {
+
+   
+    private static File findExtremeFile(final Path p) {
+        final List fileList = new ArrayList();
+        fileList.add(p.toFile());
+        File x = null;
+        while (!fileList.isEmpty()) {
+            File file = (File) fileList.remove(0);
+            if (file.isDirectory()) {
+                if (file.listFiles() != null) {
+                    fileList.addAll(Arrays.asList(file.listFiles()));
+                }
+            } else {
+                x = Finder.extreme(x, file);
+            }
+        }
+        return x;
+    }
+
+ 
+    public void testExtreme() throws Exception {
+        
+        File f1 = null;
+        final File f2 = File.createTempFile("test2_", ".tmp");
+        f2.deleteOnExit();
+
+        assertEquals(f2, Finder.extreme(f1, f2));
+        assertEquals(f2, Finder.extreme(f2, f1));
+
+        
+    public void findExtremeFile() throws Exception {
+       
+        final File f2 = File.createTempFile("test", ".tmp");
+        f2.deleteOnExit();
+
+        final Path p = f2.getParentFile().getParentFile().toPath();
+        final File extreme1 = Finder.findExtremeFile(p);
+        final File extreme2 = FinderTest.findExtremeFile(p);
+        assertEquals(extreme1, extreme2);
+    }
+}
